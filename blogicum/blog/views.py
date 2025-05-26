@@ -40,9 +40,9 @@ def post_detail(request, post_id):
 
     if (
         (
-            not post.is_published or
-            not post.category.is_published or
-            post.pub_date > timezone.now()
+            not post.is_published
+            or not post.category.is_published
+            or post.pub_date > timezone.now()
         )
         and request.user != post.author
     ):
