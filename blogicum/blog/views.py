@@ -39,7 +39,11 @@ def post_detail(request, post_id):
     )
 
     if (
-        (not post.is_published or not post.category.is_published or post.pub_date > timezone.now())
+        (
+            not post.is_published or
+            not post.category.is_published or
+            post.pub_date > timezone.now()
+        )
         and request.user != post.author
     ):
         raise Http404("Пост не доступен")
@@ -81,6 +85,7 @@ def category_posts(request, category_slug):
     }
     return render(request, template, context)
 
+
 @login_required
 def create_post(request):
     template = 'blog/create.html'
@@ -118,6 +123,7 @@ def edit_post(request, post_id):
 
     context = {'form': form}
     return render(request, template, context)
+
 
 @login_required
 def delete_post(request, post_id):
